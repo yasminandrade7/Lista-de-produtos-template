@@ -92,3 +92,59 @@ const listaProdutos = [
     "classificacao": 4
   }
 ]
+
+const lista = document.getElementById('lista-produtos');
+
+listaProdutos.forEach(produto => {
+    const estrelas = '★'.repeat(produto.classificacao) + '☆'.repeat(5 - produto.classificacao);
+
+    const item = document.createElement('li');
+    item.classList.add('card');
+
+    const figure = document.createElement('figure');
+    figure.classList.add('card__imagem');
+
+    const img = document.createElement('img');
+    img.src = `./img/${produto.imagem}`;
+    img.alt = produto.nome;
+
+    figure.appendChild(img);
+
+    const section = document.createElement('section');
+    section.classList.add('card__info');
+
+    const categoria = document.createElement('span');
+    categoria.classList.add('card__categoria');
+    categoria.textContent = produto.categoria;
+
+    const nome = document.createElement('h3');
+    nome.classList.add('card__nome');
+    nome.textContent = produto.nome;
+
+    const descricao = document.createElement('p');
+    descricao.classList.add('card__descricao');
+    descricao.textContent = produto.descricao;
+
+    const classificacao = document.createElement('div');
+    classificacao.classList.add('card__classificacao');
+    classificacao.setAttribute('aria-label', `Classificação: ${produto.classificacao} de 5 estrelas`);
+
+    const estrelasSpan = document.createElement('span');
+    estrelasSpan.classList.add('card__estrelas');
+    estrelasSpan.textContent = estrelas;
+
+    classificacao.appendChild(estrelasSpan);
+
+    const preco = document.createElement('strong');
+    preco.classList.add('card__preco');
+    preco.textContent = `R$ ${produto.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+    const botao = document.createElement('button');
+    botao.classList.add('card__botao');
+    botao.textContent = 'Comprar';
+
+    section.append(categoria, nome, descricao, classificacao, preco, botao);
+    item.append(figure, section);
+
+    lista.appendChild(item);
+});
